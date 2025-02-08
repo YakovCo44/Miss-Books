@@ -1,6 +1,7 @@
 import { App } from './RootCmp.jsx'
 import { Home } from "./pages/Home"
 import { AboutUs } from "./pages/AboutUs"
+import { BookIndex } from "./pages/BookIndex"
 
 const elContainer = document.getElementById('root')
 const root = ReactDOM.createRoot(elContainer)
