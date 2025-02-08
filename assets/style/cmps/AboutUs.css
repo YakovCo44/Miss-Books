@@ -1,0 +1,23 @@
+.about-us {
+    text-align: center;
+    margin-top: 50px;
+    font-family: Arial, sans-serif;
+}
+
+.about-us h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+}
+
+.about-us h2 {
+    font-size: 2rem;
+    color: #34495e;
+}
+
+.about-us p {
+    font-size: 1.2rem;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
