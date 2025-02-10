@@ -1,14 +1,22 @@
-import { Home } from "./pages/Home.jsx"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { Home } from "../pages/Home"
+import { AboutUs } from "../pages/AboutUs"
+import { BookIndex } from "../pages/BookIndex"
+import { AppHeader } from "../cmps/AppHeader"
 
-export function App() {
+export function RootCmp() {
     return (
-        <section className="app">
-            <header className="app-header main-layout">
-                <h1>My App</h1>
-            </header>
-            <main className="main-layout">
-                <Home />
-            </main>
-        </section>
+        <Router>
+            <section className="app">
+                <AppHeader />
+                <main className="main-layout">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/about" element={<AboutUs />} />
+                        <Route path="/books" element={<BookIndex />} />
+                    </Routes>
+                </main>
+            </section>
+        </Router>
     )
 }

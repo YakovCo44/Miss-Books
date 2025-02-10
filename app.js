@@ -1,20 +1,5 @@
-import { App } from './RootCmp.jsx'
-import { Home } from "./pages/Home"
-import { AboutUs } from "./pages/AboutUs"
-import { BookIndex } from "./pages/BookIndex"
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { RootCmp } from './RootCmp'
 
-const elContainer = document.getElementById('root')
-const root = ReactDOM.createRoot(elContainer)
-root.render(<App />)
-
-
-export function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<AboutUs />} />
-            </Routes>
-        </Router>
-    )
-}
+ReactDOM.render(<RootCmp />, document.getElementById('root'))
