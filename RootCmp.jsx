@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import { Home } from "../pages/Home"
 import { AboutUs } from "../pages/AboutUs"
 import { BookIndex } from "../pages/BookIndex"
+import { BookDetails } from "../pages/BookDetails"
 import { AppHeader } from "../cmps/AppHeader"
 
 export function RootCmp() {
