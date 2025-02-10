@@ -8,3 +8,4 @@ function query(searchTerm) {
         .then(res => res.json())
         .then(data => data.items || [])
 }
+

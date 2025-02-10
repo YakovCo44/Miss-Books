@@ -11,3 +11,9 @@
 /* Components */
 @import 'cmps/app-header.css';
 @import 'cmps/user-msg.css';
+@import 'cmps/book-add.css';
+@import 'cmps/dashboard.css';
+@import 'cmps/AboutUs.css';
+@import 'cmps/reviews.css';
+
+

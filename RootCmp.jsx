@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
+const { BrowserRouter: Router, Routes, Route, Link } = ReactRouterDOM
 import { Home } from "../pages/Home"
 import { AboutUs } from "../pages/AboutUs"
 import { BookIndex } from "../pages/BookIndex"
@@ -24,3 +24,4 @@ export function RootCmp() {
         </Router>
     )
 }
+

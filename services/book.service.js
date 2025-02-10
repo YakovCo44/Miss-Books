@@ -15,10 +15,16 @@ export const bookService = {
 }
 
 const BOOKS_KEY = 'books_db'
-let books = storageService.loadFromStorage(BOOKS_KEY) || _createBooks()
+let books = storageService.loadFromStorage(BOOKS_KEY)
+
+// Ensure books are initialized properly
+if (!books || !books.length) {
+    books = _createBooks()
+    storageService.saveToStorage(BOOKS_KEY, books)
+}
 
 function query() {
-    return Promise.resolve(books)
+    return Promise.resolve(books || [])
 }
 
 function getById(bookId) {
@@ -48,10 +54,9 @@ function deleteBook(bookId) {
 
 function _createBooks() {
     const sampleBooks = [
-        { id: utilService.makeId(), title: "The Hobbit", listPrice: { amount: 20, currencyCode: "USD" }, thumbnail: "https://via.placeholder.com/150" },
-        { id: utilService.makeId(), title: "Harry Potter", listPrice: { amount: 25, currencyCode: "USD" }, thumbnail: "https://via.placeholder.com/150" }
+        { id: utilService.makeId(), title: "The Hobbit", listPrice: { amount: 20, currencyCode: "USD" }, thumbnail: "https://via.placeholder.com/150", categories: ["Fantasy"] },
+        { id: utilService.makeId(), title: "Harry Potter", listPrice: { amount: 25, currencyCode: "USD" }, thumbnail: "https://via.placeholder.com/150", categories: ["Fantasy"] }
     ]
-    storageService.saveToStorage(BOOKS_KEY, sampleBooks)
     return sampleBooks
 }
 
@@ -94,11 +99,12 @@ function getBooksByCategory() {
     return query().then(books => {
         const categoryMap = {}
         books.forEach(book => {
-            const category = book.categories?.[0] || "Unknown"
+            const category = book.categories?.[0] || "General"
             if (!categoryMap[category]) categoryMap[category] = 0
             categoryMap[category]++
         })
         return categoryMap
     })
 }
+
 

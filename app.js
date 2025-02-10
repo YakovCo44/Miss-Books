@@ -1,5 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { RootCmp } from './RootCmp'
+console.log("app.js is running...")
 
-ReactDOM.render(<RootCmp />, document.getElementById('root'))
+const { createElement } = React
+const { createRoot } = ReactDOM
+
+import { RootCmp } from "./RootCmp.jsx"
+
+const rootElement = document.getElementById("root")
+
+if (!rootElement) {
+    console.error("Root element not found! Make sure <div id='root'></div> exists in index.html.")
+} else {
+    const root = createRoot(rootElement)
+    root.render(createElement(RootCmp))
+}
+
+

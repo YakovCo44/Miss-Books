@@ -6,4 +6,5 @@ function emit(eventName, data) {
     document.dispatchEvent(new CustomEvent(eventName, { detail: data }))
 }
 
-export const eventBusService = { on, emit }
+export const eventService = { on, emit }
+
