@@ -1,32 +1,42 @@
 import { useState } from "react"
 import { bookService } from "../services/book.service"
+import { googleBookService } from "../services/googleBookService"
 
 export function BookAdd({ onAddBook }) {
     const [title, setTitle] = useState("")
-    const [price, setPrice] = useState("")
+    const [results, setResults] = useState([])
 
-    function handleSubmit(ev) {
+    function handleChange({ target }) {
+        setTitle(target.value)
+    }
+
+    function handleSearch(ev) {
         ev.preventDefault()
-        const newBook = {
-            title,
-            listPrice: { amount: +price, currencyCode: "USD" },
-            thumbnail: "https://via.placeholder.com/150"
-        }
-        bookService.addBook(newBook).then(addedBook => {
-            onAddBook(addedBook) // Update parent state
-            setTitle("")
-            setPrice("")
-        })
+        if (!title.trim()) return
+        googleBookService.query(title).then(setResults)
+    }
+
+    function handleAddGoogleBook(googleBook) {
+        bookService.addGoogleBook(googleBook).then(onAddBook)
     }
 
     return (
         <section className="book-add">
-            <h3>Add a New Book</h3>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={title} onChange={e => setTitle(e.target.value)} placeholder="Book Title" required />
-                <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="Price" required />
-                <button type="submit">Add Book</button>
+            <h3>Search for Books</h3>
+            <form onSubmit={handleSearch}>
+                <input type="text" value={title} onChange={handleChange} placeholder="Enter book title..." />
+                <button type="submit">Search</button>
             </form>
+
+            <ul className="google-results">
+                {results.map(book => (
+                    <li key={book.id}>
+                        <span>{book.volumeInfo.title}</span>
+                        <button onClick={() => handleAddGoogleBook(book)}>+</button>
+                    </li>
+                ))}
+            </ul>
         </section>
     )
 }
+

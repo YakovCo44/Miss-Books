@@ -1,3 +1,4 @@
+import { googleBookService } from "./googleBookService"
 import { storageService } from "./storage.service"
 import { utilService } from "./util.service"
 
@@ -8,7 +9,8 @@ export const bookService = {
     updateBook,
     deleteBook,
     addReview,
-    deleteReview
+    deleteReview,
+    addGoogleBook
 }
 
 const BOOKS_KEY = 'books_db'
@@ -67,5 +69,23 @@ function deleteReview(bookId, reviewIdx) {
         updateBook(book)
         return Promise.resolve()
     })
+}
+
+function addGoogleBook(googleBook) {
+    const newBook = {
+        id: googleBook.id,
+        title: googleBook.volumeInfo.title,
+        listPrice: { amount: utilService.getRandomIntInclusive(10, 100), currencyCode: "USD" },
+        thumbnail: googleBook.volumeInfo.imageLinks?.thumbnail || "https://via.placeholder.com/150",
+        description: googleBook.volumeInfo.description || "No description available",
+        pageCount: googleBook.volumeInfo.pageCount || 100,
+        publishedDate: googleBook.volumeInfo.publishedDate?.slice(0, 4) || "Unknown",
+        authors: googleBook.volumeInfo.authors || ["Unknown"],
+        categories: googleBook.volumeInfo.categories || ["General"],
+        language: googleBook.volumeInfo.language || "en",
+        reviews: []
+    }
+
+    return addBook(newBook)
 }
 

@@ -1,0 +1,23 @@
+.book-add {
+    margin-bottom: 20px;
+}
+
+.google-results {
+    list-style: none;
+    padding: 0;
+}
+
+.google-results li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    border-bottom: 1px solid #ddd;
+}
+
+.google-results button {
+    background: green;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}
