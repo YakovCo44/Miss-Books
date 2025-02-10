@@ -1,0 +1,23 @@
+.reviews {
+    margin-top: 20px;
+}
+
+.reviews ul {
+    list-style: none;
+    padding: 0;
+}
+
+.reviews li {
+    background: #f8f8f8;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.reviews button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}

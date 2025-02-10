@@ -6,7 +6,9 @@ export const bookService = {
     getById,
     addBook,
     updateBook,
-    deleteBook
+    deleteBook,
+    addReview,
+    deleteReview
 }
 
 const BOOKS_KEY = 'books_db'
@@ -48,5 +50,22 @@ function _createBooks() {
     ]
     storageService.saveToStorage(BOOKS_KEY, sampleBooks)
     return sampleBooks
+}
+
+function addReview(bookId, review) {
+    return getById(bookId).then(book => {
+        if (!book.reviews) book.reviews = []
+        book.reviews.push(review)
+        updateBook(book)
+        return Promise.resolve(review)
+    })
+}
+
+function deleteReview(bookId, reviewIdx) {
+    return getById(bookId).then(book => {
+        book.reviews.splice(reviewIdx, 1)
+        updateBook(book)
+        return Promise.resolve()
+    })
 }
 
