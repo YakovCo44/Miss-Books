@@ -1,31 +1,32 @@
 import { useEffect, useState } from "react"
 import { bookService } from "../services/book.service"
 import { BookList } from "../cmps/BookList"
+import { BookAdd } from "../cmps/BookAdd"
+import { useNavigate } from "react-router-dom"
 
 export function BookIndex() {
-    const [books, setBooks] = useState([]) // State to store books
-    const [isLoading, setIsLoading] = useState(true) // Loading state
+    const [books, setBooks] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
-        loadBooks()
+        bookService.query().then(setBooks)
     }, [])
 
-    function loadBooks() {
-        bookService.query()
-            .then(books => {
-                setBooks(books)
-                setIsLoading(false)
-            })
-            .catch(err => {
-                console.error("Error loading books:", err)
-                setIsLoading(false)
-            })
+    function handleDelete(bookId) {
+        bookService.deleteBook(bookId).then(() => {
+            setBooks(prevBooks => prevBooks.filter(book => book.id !== bookId))
+        })
+    }
+
+    function handleAdd(newBook) {
+        setBooks(prevBooks => [...prevBooks, newBook])
     }
 
     return (
         <section className="book-index">
-            <h1>📚 Our Book Collection</h1>
-            {isLoading ? <p>Loading books...</p> : <BookList books={books} />}
+            <h2>Books List</h2>
+            <BookAdd onAddBook={handleAdd} />
+            <BookList books={books} onDelete={handleDelete} onEdit={book => navigate(`/books/edit/${book.id}`)} />
         </section>
     )
 }
