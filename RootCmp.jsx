@@ -7,11 +7,13 @@ import { Dashboard } from "../pages/Dashboard"
 import { AppHeader } from "../cmps/AppHeader"
 
 export function RootCmp() {
+    console.log("RootCmp is rendering!") 
     return (
         <Router>
             <section className="app">
                 <AppHeader />
                 <main className="main-layout">
+                    <h1 style={{ color: "red" }}>Hello, Miss Books!</h1> 
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<AboutUs />} />
@@ -24,4 +26,5 @@ export function RootCmp() {
         </Router>
     )
 }
+
 
