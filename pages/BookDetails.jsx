@@ -22,8 +22,6 @@ export function BookDetails() {
         })
     }
 
-    if (!book) return <h3>Loading...</h3>
-
     function getReadingCategory(pageCount) {
         if (pageCount > 500) return "📖 Serious Reading"
         if (pageCount > 200) return "📚 Decent Reading"
@@ -43,13 +41,39 @@ export function BookDetails() {
         return ""
     }
 
+    function goToNextBook() {
+        bookService.query().then(books => {
+            const idx = books.findIndex(b => b.id === bookId)
+            if (idx < books.length - 1) navigate(`/books/${books[idx + 1].id}`)
+        })
+    }
+
+    function goToPrevBook() {
+        bookService.query().then(books => {
+            const idx = books.findIndex(b => b.id === bookId)
+            if (idx > 0) navigate(`/books/${books[idx - 1].id}`)
+        })
+    }
+
+    if (!book) return <h3>Loading...</h3>
+
     return (
         <section className="book-details">
             <h2>{book.title}</h2>
             <img src={book.thumbnail} alt={book.title} />
-            <p>💰 {book.listPrice.amount} {book.listPrice.currencyCode}</p>
+            <p className={`price ${getPriceClass(book.listPrice.amount)}`}>
+                💰 {book.listPrice.amount} {book.listPrice.currencyCode}
+            </p>
             {book.listPrice.isOnSale && <p className="on-sale">🔥 On Sale!</p>}
             <p>{book.description}</p>
+            <p>{getReadingCategory(book.pageCount)}</p>
+            <p>{getPublishedStatus(book.publishedDate)}</p>
+
+            <div className="book-navigation">
+                <button onClick={goToPrevBook}>⬅ Previous Book</button>
+                <button onClick={goToNextBook}>Next Book ➡</button>
+            </div>
+
             <button onClick={() => navigate("/books")}>Back to Books</button>
 
             <section className="reviews">
