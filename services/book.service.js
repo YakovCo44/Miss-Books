@@ -10,7 +10,8 @@ export const bookService = {
     deleteBook,
     addReview,
     deleteReview,
-    addGoogleBook
+    addGoogleBook,
+    getBooksByCategory
 }
 
 const BOOKS_KEY = 'books_db'
@@ -87,5 +88,17 @@ function addGoogleBook(googleBook) {
     }
 
     return addBook(newBook)
+}
+
+function getBooksByCategory() {
+    return query().then(books => {
+        const categoryMap = {}
+        books.forEach(book => {
+            const category = book.categories?.[0] || "Unknown"
+            if (!categoryMap[category]) categoryMap[category] = 0
+            categoryMap[category]++
+        })
+        return categoryMap
+    })
 }
 

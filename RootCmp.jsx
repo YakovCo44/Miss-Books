@@ -1,8 +1,9 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { Home } from "../pages/Home"
 import { AboutUs } from "../pages/AboutUs"
 import { BookIndex } from "../pages/BookIndex"
 import { BookDetails } from "../pages/BookDetails"
+import { Dashboard } from "../pages/Dashboard"
 import { AppHeader } from "../cmps/AppHeader"
 
 export function RootCmp() {
@@ -15,6 +16,8 @@ export function RootCmp() {
                         <Route path="/" element={<Home />} />
                         <Route path="/about" element={<AboutUs />} />
                         <Route path="/books" element={<BookIndex />} />
+                        <Route path="/books/:bookId" element={<BookDetails />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
                     </Routes>
                 </main>
             </section>
